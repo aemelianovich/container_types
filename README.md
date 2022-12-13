@@ -1,28 +1,41 @@
-# Work with unicode chars
+# Container types
 
-Implementation of different use cases that needs to work with unicode chars
+## Result Container
 
-## isNumber advanced method
-
-Check whether passed string is number or not.
-Can support different alphabets, e.g. Latin and Roman alphabets(Easy to extend).
-Numbers from different alphabets treated as not a number.
+Container Result with two states Success and Error. Container should have functors and monados.
 
 ```js
-import isNumber from './src';
+import Result from './src';
 
-console.log(isNumber('1234567890')); // true
-console.log(isNumber('ⅯⅩⅧ')); // true
-console.log(isNumber('ⅯⅩⅧ12')); // false
+const result = new Result(() => 10);
+
+const resultSuccess = Result.success(10); // Create container through static method
+const resultError = Result.error(10); // Create container through static method
+
+// then - implementation of the functor interface then<R>(cb: (value: T) => Data<R>): Result<R>
+// then - implementation of the monadic interface then<R>(cb: (value: T) => Result<R>): Result<R>
+// catch - Process an erorr by passing it as parameter of callback function. Returns new Container with undefined
+result
+  .then((el) => el * 2)
+  .then((el) => Result.error(el))
+  .catch((err) => console.log(err));
 ```
 
-## strIter mimic native string iterator
+## Executor
 
-Custom string iterator that mimics the native string iterator,
-It should properly works with surrogate pairs in the UTF-16 encoding.
+Imitation of async/await for container Result and Promise based on generator
 
 ```js
-import getStrIter from './src';
+import Result, { exec } from './src';
 
-console.log([...getStrIter('amd😀3452🧓1v🇦🇩😀')]); // ['a', 'm', 'd', '😀', '3', '4', '5','2', '🧓', '1', 'v', '🇦', '🇩', '😀']
+exec(function* main() {
+  const res = [];
+  const result = new Result(() => 10);
+
+  res.push(yield result.then((el) => el * 2));
+  res.push(yield Promise.resolve(30));
+  res.push(yield Promise.resolve(40));
+
+  console.log(res); // [20,30,40]
+});
 ```

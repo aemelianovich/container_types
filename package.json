@@ -1,7 +1,7 @@
 {
-  "name": "work_with_unicode_chars",
+  "name": "container_types",
   "version": "1.0.0",
-  "description": "Work with unicode chars",
+  "description": "Container types, functors, monados demo",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
@@ -14,15 +14,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/aemelianovich/work_with_unicode_chars.git"
+    "url": "git+https://github.com/aemelianovich/container_types.git"
   },
   "type": "module",
   "author": "aemelianovich@yandex.ru",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/aemelianovich/work_with_unicode_chars/issues"
+    "url": "https://github.com/aemelianovich/container_types/issues"
   },
-  "homepage": "https://github.com/aemelianovich/work_with_unicode_chars#readme",
+  "homepage": "https://github.com/aemelianovich/container_types#readme",
   "devDependencies": {
     "@types/jest": "^29.1.2",
     "@typescript-eslint/eslint-plugin": "^5.39.0",
